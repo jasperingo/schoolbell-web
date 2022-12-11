@@ -20,6 +20,10 @@ export class AuthService {
     return `Bearer ${this.auth?.accessToken}`;
   }
 
+  get authUserFullName() {
+    return `${this.authUser?.firstName} ${this.authUser?.lastName}`;
+  }
+
   saveAuth() {
     window.sessionStorage.setItem('accessToken', this.auth?.accessToken ?? '');
     window.sessionStorage.setItem('expirationDate', this.auth?.expirationDate ?? '');

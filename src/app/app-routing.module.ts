@@ -7,6 +7,8 @@ import { SignUpComponent } from './pages/sign-up/sign-up.component';
 import { AuthGuard } from './guards/auth-guard/auth.guard';
 import { GuestGuard } from './guards/guest-guard/guest.guard';
 import { CalendarComponent } from './pages/calendar/calendar.component';
+import { EventsComponent } from './pages/events/events.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
 
 const routes: Routes = [
   {
@@ -33,6 +35,14 @@ const routes: Routes = [
         path: '',
         component: CalendarComponent,
       },
+      {
+        path: 'events',
+        component: EventsComponent,
+      },
+      {
+        path: 'create-event',
+        component: CreateEventComponent,
+      }
     ]
   }
 ];

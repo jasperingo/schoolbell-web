@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ToastNoAnimationModule } from 'ngx-toastr';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,9 +14,11 @@ import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SubmitButtonComponent } from './components/forms/submit-button/submit-button.component';
 import { PasswordInputComponent } from './components/forms/password-input/password-input.component';
 import { SmallLoaderComponent } from './components/loaders/small-loader/small-loader.component';
-import { AccountComponent } from './pages/account/account.component';
+import { AccountComponent, AccountNavItemComponent, UserDLItemComponent } from './pages/account/account.component';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { BigLoaderComponent } from './components/loaders/big-loader/big-loader.component';
+import { EventsComponent } from './pages/events/events.component';
+import { CreateEventComponent } from './pages/create-event/create-event.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +33,17 @@ import { BigLoaderComponent } from './components/loaders/big-loader/big-loader.c
     SmallLoaderComponent,
     AccountComponent,
     CalendarComponent,
-    BigLoaderComponent
+    BigLoaderComponent,
+    UserDLItemComponent,
+    AccountNavItemComponent,
+    EventsComponent,
+    CreateEventComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FontAwesomeModule,
     ReactiveFormsModule,
     ToastNoAnimationModule.forRoot(),
   ],
