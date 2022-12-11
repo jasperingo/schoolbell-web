@@ -9,6 +9,8 @@ import { GuestGuard } from './guards/guest-guard/guest.guard';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { EventsComponent } from './pages/events/events.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { EventComponent } from './pages/event/event.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   {
@@ -42,9 +44,14 @@ const routes: Routes = [
       {
         path: 'create-event',
         component: CreateEventComponent,
-      }
+      },
+      {
+        path: 'events/:id',
+        component: EventComponent,
+      },
     ]
-  }
+  },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

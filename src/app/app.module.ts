@@ -19,6 +19,12 @@ import { CalendarComponent } from './pages/calendar/calendar.component';
 import { BigLoaderComponent } from './components/loaders/big-loader/big-loader.component';
 import { EventsComponent } from './pages/events/events.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
+import { HeaderTwoComponent } from './components/utils/header-two/header-two.component';
+import { EmptyListComponent } from './components/utils/empty-list/empty-list.component';
+import { ErrorMessageComponent } from './components/utils/error-message/error-message.component';
+import { EventItemComponent } from './components/lists/event-item/event-item.component';
+import { EventComponent } from './pages/event/event.component';
+import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +44,12 @@ import { CreateEventComponent } from './pages/create-event/create-event.componen
     AccountNavItemComponent,
     EventsComponent,
     CreateEventComponent,
+    HeaderTwoComponent,
+    EmptyListComponent,
+    ErrorMessageComponent,
+    EventItemComponent,
+    EventComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,

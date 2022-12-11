@@ -1,4 +1,4 @@
-import { faBars, faUser, faPhone, faTimes, faCalendar, faCalendarPlus, faCalendarAlt  } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faUser, faPhone, faTimes, faCalendar, faCalendarPlus, faCalendarAlt, faWarning  } from '@fortawesome/free-solid-svg-icons';
 
 export const appIcons = {
   faBars,
@@ -8,4 +8,5 @@ export const appIcons = {
   faCalendar,
   faCalendarPlus,
   faCalendarAlt,
+  faWarning,
 }

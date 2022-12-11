@@ -1,1 +1,28 @@
-<p>events works!</p>
+<div class="container py-4">
+  <app-header-two text="Events"></app-header-two>
+
+  <ul>
+    <app-event-item *ngFor="let item of list" [item]="item"></app-event-item>
+
+    <li *ngIf="loading">
+      <app-big-loader class="block"></app-big-loader>
+    </li> 
+    
+    <li *ngIf="error !== null">
+      <app-error-message 
+        class="block col-span-2" 
+        [message]="error"
+        (action)="retryFetchList()"
+        >
+      </app-error-message>
+    </li>
+  
+    <li *ngIf="loaded && list.length === 0">
+      <app-empty-list 
+        text="No result found" 
+        class="block col-span-2"
+        >
+      </app-empty-list>
+    </li>
+  </ul>
+</div>

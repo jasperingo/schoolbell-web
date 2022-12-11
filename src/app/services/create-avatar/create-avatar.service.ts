@@ -9,6 +9,10 @@ export class CreateAvatarService {
 
   constructor() {}
 
+  getColor() {
+    return COLORS[Math.floor(Math.random() * COLORS.length)];
+  }
+
   create(names: string[]): [color: string, initials: string] {
     const initials: string[] = [];
 
@@ -16,6 +20,6 @@ export class CreateAvatarService {
       initials.push(name.substring(0, 1));
     });
 
-    return [COLORS[Math.floor(Math.random() * COLORS.length)], initials.join('')];
+    return [this.getColor(), initials.join('')];
   }
 }
