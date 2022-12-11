@@ -27,6 +27,7 @@ import { EventComponent, EventNavButtonComponent } from './pages/event/event.com
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { EventOccurrenceItemComponent } from './components/lists/event-occurrence-item/event-occurrence-item.component';
 import { ParticipantsItemComponent } from './components/lists/participants-item/participants-item.component';
+import { TextareaInputComponent } from './components/forms/textarea-input/textarea-input.component';
 
 @NgModule({
   declarations: [
@@ -55,6 +56,7 @@ import { ParticipantsItemComponent } from './components/lists/participants-item/
     EventNavButtonComponent,
     EventOccurrenceItemComponent,
     ParticipantsItemComponent,
+    TextareaInputComponent,
   ],
   imports: [
     BrowserModule,

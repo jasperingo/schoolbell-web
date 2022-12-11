@@ -15,6 +15,27 @@ export class EventService {
     private readonly authService: AuthService,
   ) { }
 
+  create(form: { title: string; description: string; }) {
+    return new Observable<Event>((subscribe) => {
+      this.httpClient
+        .post<ApiDto<Event>>(
+          `${environment.apiUrl}events`, 
+          form,
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
   getOne(id: string | number) {
     return new Observable<Event>((subscribe) => {
       this.httpClient

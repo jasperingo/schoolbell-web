@@ -1,0 +1,13 @@
+<div class="relative mb-4" [formGroup]="parentForm">
+  <label [for]="inputId" class="absolute px-2 font-bold">{{ labelText }} {{ required ? '': '(Optional)' }}</label>
+  <textarea 
+    [id]="inputId"
+    [required]="required"
+    [maxlength]="maxLength"
+    [minlength]="minLength"
+    [formControlName]="controlName" 
+    class="w-full rounded-lg block pt-6 px-2 pb-2 bg-white border border-green-700 outline-none disabled:text-gray-400" 
+  >
+  </textarea>
+  <span class="text-red-500 text-sm">{{ error }}</span>
+</div>
