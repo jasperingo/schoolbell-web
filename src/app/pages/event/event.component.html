@@ -15,11 +15,15 @@
 
     <div class="text-4xl mb-4">{{ event.title }}</div>
 
-    <div class="flex gap-8 items-center mb-4">
+    <div class="flex flex-wrap gap-8 items-center mb-4">
       <div class="bg-gray-200 py-2 px-4 rounded-lg">
         <span class="font-bold">Host: </span>
         <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
       </div>
+
+      <a routerLink="/account/events/{{ event.id }}/create-event-occurrence" *ngIf="isHost" class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400">
+        Create event occurrence
+      </a>
 
       <ng-container *ngIf="!isHost">
         <button *ngIf="!isParticipant" [disabled]="joinLoading" class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400" (click)="joinEvent()">

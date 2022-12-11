@@ -64,7 +64,7 @@ export class EventComponent implements OnInit {
   }
 
   get isHost() {
-    return this.event?.participants.find((p) => p.host && p.user.id === this.authService.authUser?.id) !== undefined;
+    return this.host?.user.id === this.authService.authUser?.id;
   }
 
   get host() {

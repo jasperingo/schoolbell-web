@@ -28,6 +28,8 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { EventOccurrenceItemComponent } from './components/lists/event-occurrence-item/event-occurrence-item.component';
 import { ParticipantsItemComponent } from './components/lists/participants-item/participants-item.component';
 import { TextareaInputComponent } from './components/forms/textarea-input/textarea-input.component';
+import { EventOccurrenceComponent } from './pages/event-occurrence/event-occurrence.component';
+import { CreateEventOccurrenceComponent } from './pages/create-event-occurrence/create-event-occurrence.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { TextareaInputComponent } from './components/forms/textarea-input/textar
     EventOccurrenceItemComponent,
     ParticipantsItemComponent,
     TextareaInputComponent,
+    EventOccurrenceComponent,
+    CreateEventOccurrenceComponent,
   ],
   imports: [
     BrowserModule,

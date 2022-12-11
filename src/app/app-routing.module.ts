@@ -11,6 +11,8 @@ import { EventsComponent } from './pages/events/events.component';
 import { CreateEventComponent } from './pages/create-event/create-event.component';
 import { EventComponent } from './pages/event/event.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { EventOccurrenceComponent } from './pages/event-occurrence/event-occurrence.component';
+import { CreateEventOccurrenceComponent } from './pages/create-event-occurrence/create-event-occurrence.component';
 
 const routes: Routes = [
   {
@@ -48,6 +50,14 @@ const routes: Routes = [
       {
         path: 'events/:id',
         component: EventComponent,
+      },
+      {
+        path: 'events/:id/create-event-occurrence',
+        component: CreateEventOccurrenceComponent,
+      },
+      {
+        path: 'event-occurrences/:id',
+        component: EventOccurrenceComponent,
       },
     ]
   },

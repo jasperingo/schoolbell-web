@@ -1,0 +1,81 @@
+<div class="container py-4">
+  <app-header-two text="Event occurrence"></app-header-two>
+
+  <app-big-loader *ngIf="loading" class="block"></app-big-loader>
+
+  <app-error-message 
+    *ngIf="error !== null"
+    class="block" 
+    [message]="error"
+    (action)="retryFetchEvent()"
+    >
+  </app-error-message>
+
+  <div *ngIf="eventOccurrence !== null">
+    <div class="text-4xl mb-4">{{ eventOccurrence.event.title }}</div>
+
+    <div class="flex flex-wrap gap-8 items-center mb-4">
+      <div class="bg-gray-200 py-2 px-4 rounded-lg">
+        <span class="font-bold">Host: </span>
+        <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
+      </div>
+
+      <div *ngIf="status === 'ended'" class="bg-red-200 rounded-lg p-2">Ended</div>
+
+      <div *ngIf="status === 'on-going'" class="bg-green-200 rounded-lg p-2">On going</div>
+
+      <div *ngIf="status === 'not-started'" class="bg-orange-200 rounded-lg p-2">Not started</div>
+
+      <a 
+        routerLink="/account/events/{{ eventOccurrence.event.id }}" 
+        class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400"
+      >
+        View event
+      </a>
+
+      <a 
+        *ngIf="isHost"
+        routerLink="/account/events/{{ eventOccurrence.id }}/manage" 
+        class="bg-blue-700 py-2 px-4 rounded-lg text-white hover:bg-blue-400"
+      >
+        Manage
+      </a>
+    </div>
+
+    <div class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Description</div>
+      <div>{{ eventOccurrence.description }}</div>
+    </div>
+
+    <div class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Start date</div>
+      <div>{{ startDate }}</div>
+    </div>
+
+    <div class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">End date</div>
+      <div>{{ endDate }}</div>
+    </div>
+
+    <div *ngIf="eventOccurrence.cancelledAt" class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Cancel date</div>
+      <div>{{ cancelDate }}</div>
+    </div>
+
+    <div class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Venue</div>
+      <div>{{ eventOccurrence.venue }}</div>
+    </div>
+
+    <div *ngIf="eventOccurrence.link" class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Venue</div>
+      <a [href]="eventOccurrence.link" target="_blank" class="text-blue-500">{{ eventOccurrence.link }}</a>
+    </div>
+
+    <div *ngIf="eventOccurrence.address" class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Addess</div>
+      <div>{{ eventOccurrence.address }}</div>
+    </div>
+  </div>
+  
+</div>
