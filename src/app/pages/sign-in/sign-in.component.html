@@ -3,7 +3,7 @@
   [formGroup]="signInForm"
   (ngSubmit)="onSubmit()"
 >
-  <fieldset [disabled]="authService.loading">
+  <fieldset [disabled]="loading">
     <app-text-input 
       maxLength="14"
       inputType="tel" 
@@ -22,6 +22,6 @@
       >
     </app-password-input>
 
-    <app-submit-button label="Sign in" [loading]="authService.loading"></app-submit-button>
+    <app-submit-button label="Sign in" [loading]="loading"></app-submit-button>
   </fieldset>
 </form>

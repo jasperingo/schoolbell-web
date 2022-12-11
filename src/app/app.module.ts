@@ -14,6 +14,8 @@ import { SubmitButtonComponent } from './components/forms/submit-button/submit-b
 import { PasswordInputComponent } from './components/forms/password-input/password-input.component';
 import { SmallLoaderComponent } from './components/loaders/small-loader/small-loader.component';
 import { AccountComponent } from './pages/account/account.component';
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { BigLoaderComponent } from './components/loaders/big-loader/big-loader.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { AccountComponent } from './pages/account/account.component';
     SubmitButtonComponent,
     PasswordInputComponent,
     SmallLoaderComponent,
-    AccountComponent
+    AccountComponent,
+    CalendarComponent,
+    BigLoaderComponent
   ],
   imports: [
     BrowserModule,

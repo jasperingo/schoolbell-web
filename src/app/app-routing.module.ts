@@ -4,11 +4,15 @@ import { AccountComponent } from './pages/account/account.component';
 import { IndexComponent } from './pages/index/index.component';
 import { SignInComponent } from './pages/sign-in/sign-in.component';
 import { SignUpComponent } from './pages/sign-up/sign-up.component';
+import { AuthGuard } from './guards/auth-guard/auth.guard';
+import { GuestGuard } from './guards/guest-guard/guest.guard';
+import { CalendarComponent } from './pages/calendar/calendar.component';
 
 const routes: Routes = [
   {
     path: '',
     component: IndexComponent,
+    canActivateChild: [GuestGuard],
     children: [
       {
         path: '',
@@ -23,6 +27,13 @@ const routes: Routes = [
   {
     path: 'account',
     component: AccountComponent,
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: CalendarComponent,
+      },
+    ]
   }
 ];
 

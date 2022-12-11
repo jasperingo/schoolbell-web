@@ -10,27 +10,18 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
   styleUrls: ['./sign-in.component.css']
 })
 export class SignInComponent {
+  loading = false;
+
   signInForm = new FormGroup({
     phoneNumber: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required])
   });
 
   constructor(
-    readonly router: Router,
-    readonly authService: AuthService, 
-    readonly toastrService: ToastrService,
-  ) {
-    authService.dataChanged$.subscribe((data) => {
-      if (data !== null) {
-        router.navigateByUrl('/account');
-        toastrService.success('Sign in successful');
-      }
-    });
-
-    authService.errorChanged$.subscribe((error) => {
-      toastrService.error(error as string);
-    });
-  }
+    private readonly router: Router,
+    private readonly authService: AuthService, 
+    private readonly toastrService: ToastrService,
+  ) {}
 
   onSubmit() {
     if (!this.signInForm.valid) {
@@ -38,9 +29,24 @@ export class SignInComponent {
       return;
     }
 
-    this.authService.mutate(
+    if (this.loading) {
+      return;
+    }
+
+    this.loading = true;
+
+    this.authService.create(
       this.signInForm.value.phoneNumber as string, 
       this.signInForm.value.password as string
-    );
+    ).subscribe({
+      next: () => {
+        this.router.navigateByUrl('/account');
+        this.toastrService.success('Sign in successful');
+      },
+
+      error: (error) => this.toastrService.error(error),
+
+      complete: () => (this.loading = false),
+    });
   }
 }
