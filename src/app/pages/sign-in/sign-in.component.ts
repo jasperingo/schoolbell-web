@@ -38,15 +38,17 @@ export class SignInComponent {
     this.authService.create(
       this.signInForm.value.phoneNumber as string, 
       this.signInForm.value.password as string
-    ).subscribe({
+    )
+    .subscribe({
       next: () => {
         this.router.navigateByUrl('/account');
         this.toastrService.success('Sign in successful');
       },
 
-      error: (error) => this.toastrService.error(error),
-
-      complete: () => (this.loading = false),
+      error: (error) => {
+        this.toastrService.error(error);
+        this.loading = false;
+      },
     });
   }
 }

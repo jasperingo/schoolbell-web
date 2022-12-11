@@ -15,6 +15,24 @@ export class UserService {
     private readonly authService: AuthService,
   ) { }
 
+  create(form: { firstName: string; lastName: string; phoneNumber: string; password: string; }) {
+    return new Observable<User>((subscribe) => {
+      this.httpClient
+        .post<ApiDto<User>>(`${environment.apiUrl}users`, form, { headers: { Authorization: this.authService.bearerToken } })
+        .subscribe({ 
+          next: (res) => {
+            subscribe.next(res.data);
+            subscribe.complete();
+          },
+
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          },
+        });
+    });
+  }
+
   me() {
     return new Observable<User>((subscribe) => {
       this.httpClient
@@ -28,7 +46,7 @@ export class UserService {
             subscribe.complete();
           }, 
           error: (error) =>  {
-            subscribe.error(error.error.error);
+            subscribe.error(error.error.error ?? environment.unknownError);
             subscribe.complete();
           }
         });

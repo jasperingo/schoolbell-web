@@ -54,16 +54,7 @@ export class AuthService {
           },
 
           error: (error) =>  {
-            switch(error.status) {
-              case 400:
-              case 401:
-                subscribe.error(error.error.error);
-                break;
-
-              default: 
-                subscribe.error('Oops! Something went wrong.');
-            }
-
+            subscribe.error(error.error.error ?? environment.unknownError);
             subscribe.complete();
           },
         });

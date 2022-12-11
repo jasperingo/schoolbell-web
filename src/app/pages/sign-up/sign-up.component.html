@@ -1,1 +1,44 @@
-<p>sign-up works!</p>
+<form
+  class="w-full p-8" 
+  [formGroup]="signUpForm"
+  (ngSubmit)="onSubmit()"
+>
+  <fieldset [disabled]="loading">
+    <app-text-input 
+      labelText="First name"
+      inputId="first-name-input" 
+      controlName="firstName"
+      [parentForm]="signUpForm"
+      >
+    </app-text-input>
+
+    <app-text-input 
+      labelText="Last name"
+      inputId="last-name-input" 
+      controlName="lastName"
+      [parentForm]="signUpForm"
+      >
+    </app-text-input>
+
+    <app-text-input 
+      maxLength="14"
+      inputType="tel" 
+      labelText="Phone number (+234...)"
+      inputId="phone-number-input" 
+      controlName="phoneNumber"
+      [parentForm]="signUpForm"
+      >
+    </app-text-input>
+
+    <app-password-input 
+      minLength="5"
+      inputId="password-input" 
+      labelText="Password"
+      [parentForm]="signUpForm"
+      controlName="password"
+      >
+    </app-password-input>
+
+    <app-submit-button label="Sign up" [loading]="loading"></app-submit-button>
+  </fieldset>
+</form>

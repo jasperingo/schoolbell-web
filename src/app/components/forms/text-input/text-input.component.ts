@@ -25,8 +25,6 @@ export class TextInputComponent {
 
   @Input() min = '';
 
-  @Input() customError = '';
-
   get control() {
     return this.parentForm.get(this.controlName);
   }
@@ -51,7 +49,7 @@ export class TextInputComponent {
       }
 
       if (this.control?.errors?.['customError']) {
-        return this.customError;
+        return this.control?.errors?.['customError'];
       }
     }
 
