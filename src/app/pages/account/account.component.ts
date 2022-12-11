@@ -3,6 +3,7 @@ import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { appIcons } from 'src/app/app-icons';
 import { IconDefinition } from '@fortawesome/fontawesome-svg-core';
 import { CreateAvatarService } from 'src/app/services/create-avatar/create-avatar.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account-nav-item',
@@ -63,6 +64,7 @@ export class AccountComponent implements OnInit {
   avatarColor = '';
 
   constructor(
+    private readonly router: Router,
     public readonly authService: AuthService, 
     private readonly createAvatarService: CreateAvatarService,
   ) {}
@@ -79,5 +81,13 @@ export class AccountComponent implements OnInit {
 
   toogleSideNav() {
     this.showSideNav = !this.showSideNav;
+  }
+
+  onSignOut(event: Event) {
+    event.preventDefault();
+
+    this.authService.clearAuth();
+
+    this.router.navigateByUrl('/');
   }
 }

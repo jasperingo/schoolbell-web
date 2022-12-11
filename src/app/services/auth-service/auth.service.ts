@@ -41,6 +41,8 @@ export class AuthService {
   }
 
   clearAuth() {
+    this.auth = null;
+    this.authUser = null;
     window.sessionStorage.removeItem('accessToken');
     window.sessionStorage.removeItem('expirationDate');
   }

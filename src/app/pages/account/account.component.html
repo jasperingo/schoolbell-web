@@ -59,7 +59,7 @@
             </app-user-dl-item>
           </dl>
 
-          <form>
+          <form (submit)="onSignOut($event)">
             <app-submit-button [danger]="true" label="Sign out"></app-submit-button>
           </form>
         </div>
