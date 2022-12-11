@@ -1,0 +1,21 @@
+<main class="py-8 border lg:h-screen">
+  <div class="container bg-green-700 p-16 rounded-3xl h-full shadow shadow-green-400 lg:flex lg:gap-4 lg:justify-evenly lg:items-center">
+    <div class="mb-8 flex-grow lg:mb-0">
+      <h1 class="text-white text-7xl font-bold mb-4">Schoolbell</h1>
+      <h2 class="text-white text-2xl">A school event alert system</h2>
+    </div>
+
+    <div class="bg-white flex-grow rounded-3xl">
+      <div>
+        <nav>
+          <ul class="flex">
+            <app-index-nav-link text="Sign in" link="/"></app-index-nav-link>
+            <app-index-nav-link text="Sign up" link="/sign-up"></app-index-nav-link>
+          </ul>
+          <router-outlet></router-outlet>
+        </nav>
+      </div>
+    </div>
+
+  </div>
+</main>

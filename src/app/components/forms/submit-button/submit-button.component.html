@@ -1,0 +1,4 @@
+<button type="submit" [ngClass]="color" class="font-bold text-white w-full p-4 rounded-lg">
+  <app-small-loader *ngIf="loading"></app-small-loader>
+  <span *ngIf="!loading">{{ label }}</span>
+</button>

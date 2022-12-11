@@ -1,0 +1,27 @@
+<form
+  class="w-full p-8" 
+  [formGroup]="signInForm"
+  (ngSubmit)="onSubmit()"
+>
+  <fieldset [disabled]="authService.loading">
+    <app-text-input 
+      maxLength="14"
+      inputType="tel" 
+      labelText="Phone number (+234...)"
+      inputId="phone-number-input" 
+      controlName="phoneNumber"
+      [parentForm]="signInForm"
+      >
+    </app-text-input>
+
+    <app-password-input 
+      inputId="password-input" 
+      labelText="Password"
+      [parentForm]="signInForm"
+      controlName="password"
+      >
+    </app-password-input>
+
+    <app-submit-button label="Sign in" [loading]="authService.loading"></app-submit-button>
+  </fieldset>
+</form>
