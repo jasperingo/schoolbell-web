@@ -27,7 +27,7 @@ export class EventItemComponent {
 
     startDate.setMinutes(startDate.getMinutes() + occurrence.duration);
 
-    return (startDate.getTime() < Date.now()) 
+    return (startDate.getTime() <= Date.now()) 
       ? 'ended'
       : 'on-going';
   }

@@ -23,8 +23,10 @@ import { HeaderTwoComponent } from './components/utils/header-two/header-two.com
 import { EmptyListComponent } from './components/utils/empty-list/empty-list.component';
 import { ErrorMessageComponent } from './components/utils/error-message/error-message.component';
 import { EventItemComponent } from './components/lists/event-item/event-item.component';
-import { EventComponent } from './pages/event/event.component';
+import { EventComponent, EventNavButtonComponent } from './pages/event/event.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { EventOccurrenceItemComponent } from './components/lists/event-occurrence-item/event-occurrence-item.component';
+import { ParticipantsItemComponent } from './components/lists/participants-item/participants-item.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,9 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
     EventItemComponent,
     EventComponent,
     PageNotFoundComponent,
+    EventNavButtonComponent,
+    EventOccurrenceItemComponent,
+    ParticipantsItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -15,11 +15,73 @@ export class EventService {
     private readonly authService: AuthService,
   ) { }
 
+  getOne(id: string | number) {
+    return new Observable<Event>((subscribe) => {
+      this.httpClient
+        .get<ApiDto<Event>>(
+          `${environment.apiUrl}events/${id}`, 
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
   getMany() {
     return new Observable<Event[]>((subscribe) => {
       this.httpClient
         .get<ApiDto<Event[]>>(
           `${environment.apiUrl}events`, 
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
+  join(id: string | number) {
+    return new Observable<Event>((subscribe) => {
+      this.httpClient
+        .post<ApiDto<Event>>(
+          `${environment.apiUrl}events/${id}/join`, 
+          null,
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
+  leave(id: string | number) {
+    return new Observable<Event>((subscribe) => {
+      this.httpClient
+        .post<ApiDto<Event>>(
+          `${environment.apiUrl}events/${id}/leave`, 
+          null,
           { headers: { Authorization: this.authService.bearerToken } }
         )
         .subscribe({ 

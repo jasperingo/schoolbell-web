@@ -10,7 +10,7 @@
     
     <li *ngIf="error !== null">
       <app-error-message 
-        class="block col-span-2" 
+        class="block" 
         [message]="error"
         (action)="retryFetchList()"
         >
@@ -20,7 +20,7 @@
     <li *ngIf="loaded && list.length === 0">
       <app-empty-list 
         text="No result found" 
-        class="block col-span-2"
+        class="block"
         >
       </app-empty-list>
     </li>

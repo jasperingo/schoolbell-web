@@ -1,1 +1,76 @@
-<p>event works!</p>
+<div class="container py-4">
+  <app-header-two text="Event"></app-header-two>
+
+  <app-big-loader *ngIf="loading" class="block"></app-big-loader>
+
+  <app-error-message 
+    *ngIf="error !== null"
+    class="block" 
+    [message]="error"
+    (action)="retryFetchEvent()"
+    >
+  </app-error-message>
+
+  <div *ngIf="event !== null">
+
+    <div class="text-4xl mb-4">{{ event.title }}</div>
+
+    <div class="flex gap-8 items-center mb-4">
+      <div class="bg-gray-200 py-2 px-4 rounded-lg">
+        <span class="font-bold">Host: </span>
+        <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
+      </div>
+
+      <ng-container *ngIf="!isHost">
+        <button *ngIf="!isParticipant" [disabled]="joinLoading" class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400" (click)="joinEvent()">
+          <app-small-loader *ngIf="joinLoading"></app-small-loader>
+          <span *ngIf="!joinLoading">Join</span>
+        </button>
+  
+        <button *ngIf="isParticipant" [disabled]="leaveLoading" class="bg-red-500 py-2 px-4 rounded-lg text-white hover:bg-red-400" (click)="leaveEvent()">
+          <app-small-loader *ngIf="leaveLoading"></app-small-loader>
+          <span *ngIf="!leaveLoading">Leave</span>
+        </button>
+      </ng-container>
+    </div>
+
+    <div class="shadow rounded-lg p-4 mb-4">
+      <div class="font-bold mb-1">Description</div>
+      <div>{{ event.description }}</div>
+    </div>
+
+    <ul class="flex gap-8 items-center my-4">
+      <app-event-nav-button
+        text="Event occurrences"
+        [isActive]="!showParticipants"
+        (action)="gotoEventOccurrences()"
+      >
+      </app-event-nav-button>
+
+      <app-event-nav-button
+        text="Participants"
+        [isActive]="showParticipants"
+        (action)="gotoParticipants()"
+      >
+      </app-event-nav-button>
+    </ul>
+
+    <ul [class]="{ 'hidden': showParticipants }">
+      <app-event-occurrence-item *ngFor="let item of event.eventOccurrences" [item]="item"></app-event-occurrence-item>
+
+      <li *ngIf="event.eventOccurrences.length === 0">
+        <app-empty-list 
+          text="No event occurrence" 
+          class="block"
+          >
+        </app-empty-list>
+      </li>
+    </ul>
+
+    <ul [class]="{ 'hidden': !showParticipants }">
+      <app-participants-item *ngFor="let item of event.participants" [item]="item"></app-participants-item>
+    </ul>
+
+  </div>
+  
+</div>
