@@ -37,6 +37,6 @@ export class EventItemComponent {
   }
 
   get occurrenceStartDate() {
-    return new Date(this.item.eventOccurrences[0].startedAt).toUTCString();
+    return new Date(this.item.eventOccurrences[0].startedAt).toLocaleString();
   }
 }

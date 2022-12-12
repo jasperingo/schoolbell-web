@@ -61,17 +61,17 @@ export class EventOccurrenceComponent implements OnInit {
   }
 
   get startDate() {
-    return new Date(this.eventOccurrence?.startedAt ?? '').toUTCString();
+    return new Date(this.eventOccurrence?.startedAt ?? '').toLocaleString();
   }
 
   get endDate() {
     const date = new Date(this.eventOccurrence?.startedAt ?? '');
     date.setMinutes(date.getMinutes() + (this.eventOccurrence?.duration ?? 0));
-    return date.toUTCString();
+    return date.toLocaleString();
   }
 
   get cancelDate() {
-    return new Date(this.eventOccurrence?.cancelledAt ?? '').toUTCString();
+    return new Date(this.eventOccurrence?.cancelledAt ?? '').toLocaleString();
   }
 
   ngOnInit(): void {

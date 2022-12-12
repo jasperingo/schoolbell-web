@@ -6,6 +6,7 @@ import { AuthService } from '../auth-service/auth.service';
 import { User } from '../../models/user.model';
 import { Observable } from 'rxjs';
 import { Event } from 'src/app/models/event.model';
+import { EventOccurrence } from 'src/app/models/event-occurrence.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,6 +60,26 @@ export class UserService {
       this.httpClient
         .get<ApiDto<Event[]>>(
           `${environment.apiUrl}users/${this.authService.authUser?.id}/events`, 
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
+  getManyEventOccurrence() {
+    return new Observable<EventOccurrence[]>((subscribe) => {
+      this.httpClient
+        .get<ApiDto<EventOccurrence[]>>(
+          `${environment.apiUrl}users/${this.authService.authUser?.id}/event-occurrences`, 
           { headers: { Authorization: this.authService.bearerToken } }
         )
         .subscribe({ 

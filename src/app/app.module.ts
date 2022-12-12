@@ -31,6 +31,7 @@ import { TextareaInputComponent } from './components/forms/textarea-input/textar
 import { EventOccurrenceComponent } from './pages/event-occurrence/event-occurrence.component';
 import { CreateEventOccurrenceComponent } from './pages/create-event-occurrence/create-event-occurrence.component';
 import { SelectInputComponent } from './components/forms/select-input/select-input.component';
+import { CalendarItemComponent } from './components/lists/calendar-item/calendar-item.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { SelectInputComponent } from './components/forms/select-input/select-inp
     EventOccurrenceComponent,
     CreateEventOccurrenceComponent,
     SelectInputComponent,
+    CalendarItemComponent,
   ],
   imports: [
     BrowserModule,

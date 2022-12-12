@@ -23,12 +23,12 @@ export class EventOccurrenceItemComponent {
   }
 
   get startDate() {
-    return new Date(this.item.startedAt).toUTCString();
+    return new Date(this.item.startedAt).toLocaleString();
   }
 
   get endDate() {
     const date = new Date(this.item.startedAt);
     date.setMinutes(date.getMinutes() + this.item.duration);
-    return date.toUTCString();
+    return date.toLocaleString();
   }
 }

@@ -24,6 +24,7 @@ export class EventsComponent implements OnInit {
 
   retryFetchList() {
     this.error = null;
+    this.fetchList();
   }
 
   fetchList() {
