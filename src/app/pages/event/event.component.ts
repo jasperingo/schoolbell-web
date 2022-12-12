@@ -121,6 +121,7 @@ export class EventComponent implements OnInit {
         next: (res) => {
           this.joinLoading = false;
           this.event = res;
+          this.toastrService.success('You have joined this event.');
         },
 
         error: (error) =>  {
@@ -138,6 +139,7 @@ export class EventComponent implements OnInit {
         next: (res) => {
           this.leaveLoading = false;
           this.event = res;
+          this.toastrService.success('You have left this event.');
         },
 
         error: (error) =>  {

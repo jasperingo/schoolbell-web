@@ -116,6 +116,7 @@ export class EventOccurrenceComponent implements OnInit {
         next: (res) => {
           this.cancelLoading = false;
           this.eventOccurrence = res;
+          this.toastrService.success('Event cancelled');
         },
 
         error: (error) =>  {
@@ -130,9 +131,9 @@ export class EventOccurrenceComponent implements OnInit {
     
     this.eventOccurrenceService.remind(this.eventID)
       .subscribe({ 
-        next: (res) => {
+        next: () => {
           this.reminderLoading = false;
-          this.eventOccurrence = res;
+          this.toastrService.success('Event reminder sent');
         },
 
         error: (error) =>  {
@@ -153,6 +154,7 @@ export class EventOccurrenceComponent implements OnInit {
         next: (res) => {
           this.postponeLoading = false;
           this.eventOccurrence = res;
+          this.toastrService.success('Event start date updated');
         },
 
         error: (error) =>  {
