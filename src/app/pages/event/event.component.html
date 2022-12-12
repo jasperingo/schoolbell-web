@@ -82,7 +82,7 @@
     </ul>
 
     <ul [class]="{ 'hidden': showParticipants }">
-      <app-event-occurrence-item *ngFor="let item of event.eventOccurrences" [item]="item"></app-event-occurrence-item>
+      <app-event-occurrence-item *ngFor="let item of eventOccurrences" [item]="item"></app-event-occurrence-item>
 
       <li *ngIf="event.eventOccurrences.length === 0">
         <app-empty-list 

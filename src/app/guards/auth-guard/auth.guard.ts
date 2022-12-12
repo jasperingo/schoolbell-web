@@ -14,10 +14,11 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     private readonly userService: UserService,
   ) {}
 
-  activate() {
+  activate(state: RouterStateSnapshot) {
     this.authService.loadAuth();
     
     if (this.authService.auth === null) {
+      this.authService.redirectUrl = state.url;
       return this.router.parseUrl('/');
     }
 
@@ -30,12 +31,10 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.authService.redirectUrl = state.url;
-    return this.activate();
+    return this.activate(state);
   }
 
   canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    this.authService.redirectUrl = state.url;
-    return this.activate();
+    return this.activate(state);
   }
 }

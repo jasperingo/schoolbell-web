@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiDto } from 'src/app/models/api-dto.model';
 import { EventOccurrence } from 'src/app/models/event-occurrence.model';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/enviroment';
 import { AuthService } from '../auth-service/auth.service';
 
 type CreateParam = {

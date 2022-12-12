@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Auth } from 'src/app/models/auth.model';
 import { ApiDto } from 'src/app/models/api-dto.model';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { environment } from 'src/environments/enviroment';
 import { User } from 'src/app/models/user.model';
 
 @Injectable({

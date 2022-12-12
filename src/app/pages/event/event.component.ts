@@ -74,6 +74,23 @@ export class EventComponent implements OnInit {
     return this.event?.participants.find((p) => p.host);
   }
 
+  get eventOccurrences() {
+    return this.event?.eventOccurrences.sort((a, b) => {
+      const ad = new Date(a.startedAt);
+      const bd = new Date(b.startedAt);
+
+      if (ad.getTime() > bd.getTime()) {
+        return -1;
+      }
+      
+      if (ad.getTime() < bd.getTime()) {
+        return 1;
+      }
+      
+      return 0;
+    });
+  }
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.eventID = params['id'];

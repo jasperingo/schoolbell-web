@@ -41,7 +41,6 @@ export class SignInComponent {
     )
     .subscribe({
       next: () => {
-        console.log(this.authService.redirectUrl);
         this.router.navigateByUrl(this.authService.redirectUrl ?? '/account');
         this.toastrService.success('Sign in successful');
         this.authService.redirectUrl = null;

@@ -155,6 +155,7 @@ export class EventOccurrenceComponent implements OnInit {
           this.postponeLoading = false;
           this.eventOccurrence = res;
           this.toastrService.success('Event start date updated');
+          this.postponeForm.value.startedAt = '';
         },
 
         error: (error) =>  {
