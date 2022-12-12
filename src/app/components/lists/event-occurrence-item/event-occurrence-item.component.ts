@@ -13,11 +13,13 @@ export class EventOccurrenceItemComponent {
     const endDate = new Date(this.endDate);
     const startDate = new Date(this.startDate);
 
-    return (endDate.getTime() <= Date.now()) 
-      ? 'ended'
-      : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
-        ? 'on-going'
-        : 'not-started'
+    return (this.item.cancelledAt)
+      ? 'cancelled'
+      : (endDate.getTime() <= Date.now()) 
+        ? 'ended'
+        : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
+          ? 'on-going'
+          : 'not-started'
   }
 
   get startDate() {

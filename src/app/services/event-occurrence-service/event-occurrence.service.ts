@@ -65,4 +65,67 @@ export class EventOccurrenceService {
         });
     });
   }
+
+  remind(id: string | number) {
+    return new Observable<EventOccurrence>((subscribe) => {
+      this.httpClient
+        .post<ApiDto<EventOccurrence>>(
+          `${environment.apiUrl}event-occurrences/${id}/remind`, 
+          null,
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
+  cancel(id: string | number) {
+    return new Observable<EventOccurrence>((subscribe) => {
+      this.httpClient
+        .put<ApiDto<EventOccurrence>>(
+          `${environment.apiUrl}event-occurrences/${id}/cancelled-at`, 
+          null,
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
+
+  postpone(id: string | number, form: { startedAt: string; }) {
+    return new Observable<EventOccurrence>((subscribe) => {
+      this.httpClient
+        .put<ApiDto<EventOccurrence>>(
+          `${environment.apiUrl}event-occurrences/${id}/started-at`, 
+          form,
+          { headers: { Authorization: this.authService.bearerToken } }
+        )
+        .subscribe({ 
+          next: (data) => {
+            subscribe.next(data.data);
+            subscribe.complete();
+          }, 
+          error: (error) =>  {
+            subscribe.error(error.error.error ?? environment.unknownError);
+            subscribe.complete();
+          }
+        });
+    });
+  }
 }

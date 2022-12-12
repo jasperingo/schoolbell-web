@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EventOccurrence } from 'src/app/models/event-occurrence.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { EventOccurrenceService } from 'src/app/services/event-occurrence-service/event-occurrence.service';
@@ -18,11 +20,26 @@ export class EventOccurrenceComponent implements OnInit {
 
   eventOccurrence: EventOccurrence | null = null;
 
+  cancelLoading = false;
+
+  postponeLoading = false;
+
+  reminderLoading = false;
+
+  postponeForm = new FormGroup({
+    startedAt: new FormControl(this.eventOccurrence?.startedAt, [Validators.required]),
+  });
+
   constructor(
     private readonly route: ActivatedRoute, 
     private readonly authService: AuthService,
+    private readonly toastrService: ToastrService,
     private readonly eventOccurrenceService: EventOccurrenceService,
   ) { }
+  
+  get canManage() {
+    return this.isHost && !this.eventOccurrence?.cancelledAt && this.status !== 'ended';
+  }
 
   get isHost() {
     return this.host?.user.id === this.authService.authUser?.id;
@@ -87,6 +104,60 @@ export class EventOccurrenceComponent implements OnInit {
         error: (error) =>  {
           this.loading = false;
           this.error = error;
+        }
+      });
+  }
+
+  cancelEvent() {
+    this.cancelLoading = true;
+    
+    this.eventOccurrenceService.cancel(this.eventID)
+      .subscribe({ 
+        next: (res) => {
+          this.cancelLoading = false;
+          this.eventOccurrence = res;
+        },
+
+        error: (error) =>  {
+          this.cancelLoading = false;
+          this.toastrService.error(error);
+        }
+      });
+  }
+
+  sendReminder() {
+    this.reminderLoading = true;
+    
+    this.eventOccurrenceService.remind(this.eventID)
+      .subscribe({ 
+        next: (res) => {
+          this.reminderLoading = false;
+          this.eventOccurrence = res;
+        },
+
+        error: (error) =>  {
+          this.reminderLoading = false;
+          this.toastrService.error(error);
+        }
+      });
+  }
+
+  onPostpone() {
+    this.postponeLoading = true;
+    
+    this.eventOccurrenceService.postpone(
+      this.eventID,
+      { startedAt: this.postponeForm.value.startedAt as string }
+    )
+      .subscribe({ 
+        next: (res) => {
+          this.postponeLoading = false;
+          this.eventOccurrence = res;
+        },
+
+        error: (error) =>  {
+          this.postponeLoading = false;
+          this.toastrService.error(error);
         }
       });
   }

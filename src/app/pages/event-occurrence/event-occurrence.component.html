@@ -33,13 +33,25 @@
         View event
       </a>
 
-      <a 
-        *ngIf="isHost"
-        routerLink="/account/events/{{ eventOccurrence.id }}/manage" 
-        class="bg-blue-700 py-2 px-4 rounded-lg text-white hover:bg-blue-400"
+      <button 
+        *ngIf="canManage" 
+        [disabled]="cancelLoading" 
+        class="bg-red-700 py-2 px-4 rounded-lg text-white hover:bg-red-400" 
+        (click)="cancelEvent()"
       >
-        Manage
-      </a>
+        <app-small-loader *ngIf="cancelLoading"></app-small-loader>
+        <span *ngIf="!cancelLoading">Cancel</span>
+      </button>
+
+      <button 
+        *ngIf="canManage" 
+        [disabled]="reminderLoading" 
+        class="bg-blue-700 py-2 px-4 rounded-lg text-white hover:bg-blue-400" 
+        (click)="sendReminder()"
+      >
+        <app-small-loader *ngIf="reminderLoading"></app-small-loader>
+        <span *ngIf="!reminderLoading">Send reminder</span>
+      </button>
     </div>
 
     <div class="shadow rounded-lg p-4 mb-4">
@@ -76,6 +88,26 @@
       <div class="font-bold mb-1">Addess</div>
       <div>{{ eventOccurrence.address }}</div>
     </div>
+
+    <form
+      *ngIf="canManage" 
+      [formGroup]="postponeForm"
+      (ngSubmit)="onPostpone()"
+      class="my-8"
+      >
+      <fieldset [disabled]="postponeLoading">
+        <app-text-input 
+          labelText="Start date"
+          inputId="start-date-input" 
+          controlName="startedAt"
+          inputType="datetime-local"
+          [parentForm]="postponeForm"
+          >
+        </app-text-input>
+
+        <app-submit-button label="Postpone" [loading]="postponeLoading"></app-submit-button>
+      </fieldset>
+    </form>
   </div>
   
 </div>

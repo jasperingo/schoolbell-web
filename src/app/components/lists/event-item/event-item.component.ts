@@ -23,6 +23,10 @@ export class EventItemComponent {
 
     const occurrence = this.item.eventOccurrences[0];
 
+    if (occurrence.cancelledAt) {
+      return 'cancelled';
+    }
+
     const startDate = new Date(occurrence.startedAt);
 
     startDate.setMinutes(startDate.getMinutes() + occurrence.duration);

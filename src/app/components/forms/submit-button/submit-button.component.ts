@@ -16,7 +16,7 @@ export class SubmitButtonComponent {
     return {
       'bg-green-700': !this.danger,
       'hover:bg-green-500': !this.danger,
-      'bg-red-500': this.danger,
+      'bg-red-700': this.danger,
       'hover:bg-red-400': this.danger,
     }
   }

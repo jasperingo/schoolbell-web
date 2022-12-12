@@ -7,6 +7,7 @@
         <span>{{ item.participants[0].user.firstName }} {{ item.participants[0].user.lastName }}</span>
       </div>
 
+      <div *ngIf="status === 'cancelled'" class="bg-red-400 rounded-lg p-2">Cancelled</div>
       <div *ngIf="status === 'not-started'" class="bg-orange-200 rounded-lg p-2">Not started</div>
       <div *ngIf="status === 'ended'" class="bg-red-200 rounded-lg p-2">Ended</div>
       <div *ngIf="status === 'on-going'" class="bg-green-200 rounded-lg p-2">
