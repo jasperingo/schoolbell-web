@@ -18,4 +18,19 @@ export class CalendarItemComponent {
     date.setMinutes(date.getMinutes() + this.item.duration);
     return date.toLocaleTimeString();
   }
+
+  get status() {
+    const endDate = new Date(this.item.startedAt);
+    endDate.setMinutes(endDate.getMinutes() + this.item.duration);
+
+    const startDate = new Date(this.item.startedAt);
+
+    return (this.item.cancelledAt)
+      ? 'cancelled'
+      : (endDate.getTime() <= Date.now()) 
+        ? 'ended'
+        : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
+          ? 'on-going'
+          : 'not-started'
+  }
 }
