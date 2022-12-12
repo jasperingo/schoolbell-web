@@ -1,1 +1,69 @@
-<p>create-event-occurrence works!</p>
+<div class="container py-4">
+  <app-header-two text="Create event occurrence"></app-header-two>
+
+  <form
+    class="w-full p-16" 
+    [formGroup]="createEventForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <fieldset [disabled]="loading">
+      <app-text-input 
+        labelText="Start date"
+        inputId="start-date-input" 
+        controlName="startedAt"
+        inputType="datetime-local"
+        [parentForm]="createEventForm"
+        >
+      </app-text-input>
+
+      <app-text-input 
+        min="1"
+        labelText="Duration (in minutes)"
+        inputId="duration-input" 
+        controlName="duration"
+        inputType="number"
+        [parentForm]="createEventForm"
+        >
+      </app-text-input>
+
+      <app-textarea-input 
+        labelText="Description"
+        inputId="description-input" 
+        controlName="description"
+        [parentForm]="createEventForm"
+        >
+      </app-textarea-input>
+
+      <app-select-input 
+        inputId="venue-input" 
+        controlName="venue" 
+        labelText="Venue" 
+        [options]="venues"
+        [parentForm]="createEventForm"
+        (change)="onVenueSelected($event)"
+      >
+      </app-select-input>
+
+      <app-text-input 
+        *ngIf="showLinkInput"
+        labelText="Link"
+        inputId="link-input" 
+        controlName="link"
+        inputType="url"
+        [parentForm]="createEventForm"
+        >
+      </app-text-input>
+
+      <app-text-input 
+        *ngIf="showAddressInput"
+        labelText="Address"
+        inputId="address-input" 
+        controlName="address"
+        [parentForm]="createEventForm"
+        >
+      </app-text-input>
+
+      <app-submit-button label="Create event occurrence" [loading]="loading"></app-submit-button>
+    </fieldset>
+  </form>
+</div>

@@ -1,0 +1,13 @@
+<div class="relative mb-4" [formGroup]="parentForm">
+  <label [for]="inputId" class="absolute px-2 font-bold">{{ labelText }} {{ required ? '': '(Optional)' }}</label>
+  <select 
+    [id]="inputId"
+    [required]="required"
+    [formControlName]="controlName" 
+    class="w-full rounded-lg block pt-6 px-2 pb-2 bg-white border border-green-700 outline-none disabled:text-gray-400" 
+  >
+    <option value=""></option>
+    <option *ngFor="let option of options" [value]="option.value">{{ option.text }}</option>
+  </select>
+  <span class="text-red-500 text-sm">{{ error }}</span>
+</div>

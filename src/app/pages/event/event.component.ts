@@ -72,7 +72,7 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.route.params.subscribe((params) => {
       this.eventID = params['id'];
     });
 
