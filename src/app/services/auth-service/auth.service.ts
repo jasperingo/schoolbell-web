@@ -14,6 +14,8 @@ export class AuthService {
 
   authUser: User | null = null;
 
+  redirectUrl: string | null = null;
+
   constructor(private readonly httpClient: HttpClient) { }
 
   get bearerToken() {

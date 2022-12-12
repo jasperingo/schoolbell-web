@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, CanActivateChild, Router } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivate, CanActivateChild, Router, RouterStateSnapshot } from '@angular/router';
 import { mergeMap, of } from 'rxjs';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { UserService } from 'src/app/services/user-service/user.service';
@@ -29,11 +29,13 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     );
   }
 
-  canActivate() {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.authService.redirectUrl = state.url;
     return this.activate();
   }
 
-  canActivateChild() {
+  canActivateChild(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    this.authService.redirectUrl = state.url;
     return this.activate();
   }
 }

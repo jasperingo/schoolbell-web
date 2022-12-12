@@ -1,6 +1,7 @@
 import { Component, OnInit, EventEmitter, Input, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { appIcons } from 'src/app/app-icons';
 import { Event } from 'src/app/models/event.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
 import { EventService } from 'src/app/services/event-service/event.service';
@@ -38,6 +39,8 @@ export class EventNavButtonComponent {
   styleUrls: ['./event.component.css']
 })
 export class EventComponent implements OnInit {
+  appIcons = appIcons;
+  
   eventID = '';
 
   loading = false;
@@ -52,7 +55,7 @@ export class EventComponent implements OnInit {
 
   leaveLoading = false;
 
-  constructor(
+  constructor( 
     private readonly route: ActivatedRoute, 
     private readonly eventServie: EventService,
     private readonly authService: AuthService,
@@ -85,6 +88,21 @@ export class EventComponent implements OnInit {
 
   gotoParticipants() {
     this.showParticipants = true;
+  }
+
+  copyEventLink() {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(window.location.href);
+    } else {
+      const input = document.createElement('input');
+      input.value = window.location.href;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+  
+    this.toastrService.success('Event link copied');
   }
 
   retryFetchEvent() {

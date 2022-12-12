@@ -21,17 +21,39 @@
         <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
       </div>
 
-      <a routerLink="/account/events/{{ event.id }}/create-event-occurrence" *ngIf="isHost" class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400">
+      <a 
+        *ngIf="isHost" 
+        routerLink="/account/events/{{ event.id }}/create-event-occurrence" 
+        class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400"
+      >
         Create event occurrence
       </a>
 
+      <button 
+        (click)="copyEventLink()" 
+        class="bg-gray-500 py-2 px-4 rounded-lg text-white hover:bg-gray-300"
+      >
+        <fa-icon [icon]="appIcons.faCopy"></fa-icon>
+        <span class="sr-only">Copy event link</span>
+      </button>
+
       <ng-container *ngIf="!isHost">
-        <button *ngIf="!isParticipant" [disabled]="joinLoading" class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400" (click)="joinEvent()">
+        <button 
+          (click)="joinEvent()"
+          *ngIf="!isParticipant" 
+          [disabled]="joinLoading" 
+          class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400" 
+        >
           <app-small-loader *ngIf="joinLoading"></app-small-loader>
           <span *ngIf="!joinLoading">Join</span>
         </button>
   
-        <button *ngIf="isParticipant" [disabled]="leaveLoading" class="bg-red-500 py-2 px-4 rounded-lg text-white hover:bg-red-400" (click)="leaveEvent()">
+        <button 
+          (click)="leaveEvent()"
+          *ngIf="isParticipant" 
+          [disabled]="leaveLoading" 
+          class="bg-red-500 py-2 px-4 rounded-lg text-white hover:bg-red-400" 
+        >
           <app-small-loader *ngIf="leaveLoading"></app-small-loader>
           <span *ngIf="!leaveLoading">Leave</span>
         </button>
