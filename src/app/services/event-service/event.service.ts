@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/enviroment';
+import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth-service/auth.service';
 import { ApiDto } from 'src/app/models/api-dto.model';
 import { Event } from '../../models/event.model';
