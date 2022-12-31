@@ -32,7 +32,14 @@ export class EventDateAndStatusService {
   }
 
   getDateString(date: Date) {
-    return date.toUTCString();
+    return date.toLocaleDateString('en-us', { 
+      weekday: 'long', 
+      year: 'numeric', 
+      month: 'long', 
+      day: 'numeric', 
+      hour: 'numeric', 
+      minute: 'numeric',
+    });
   }
 
   getStartDate(occurrence: EventOccurrence) {
