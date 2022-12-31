@@ -42,6 +42,13 @@ export class EventDateAndStatusService {
     });
   }
 
+  getTimeString(date: Date) {
+    return date.toLocaleTimeString('en-us', {
+      hour: 'numeric', 
+      minute: 'numeric',
+    });
+  }
+
   getStartDate(occurrence: EventOccurrence) {
     return new Date(occurrence.startedAt);
   }
@@ -52,6 +59,10 @@ export class EventDateAndStatusService {
     endDate.setMinutes(endDate.getMinutes() + occurrence.duration);
 
     return endDate;
+  }
+
+  getCancelDate(occurrence: EventOccurrence) {
+    return new Date(occurrence.cancelledAt ?? '');
   }
 
   getStartDateString(occurrence: EventOccurrence) {
@@ -65,7 +76,22 @@ export class EventDateAndStatusService {
   }
 
   getCancelDateString(occurrence: EventOccurrence) {
-    const cancelDate = new Date(occurrence.cancelledAt ?? '');
+    const cancelDate = this.getCancelDate(occurrence);
     return this.getDateString(cancelDate);
+  }
+
+  getStartTimeString(occurrence: EventOccurrence) {
+    const startDate = this.getStartDate(occurrence);
+    return this.getTimeString(startDate);
+  }
+
+  getEndTimeString(occurrence: EventOccurrence) {
+    const endDate = this.getEndDate(occurrence);
+    return this.getTimeString(endDate);
+  }
+
+  getCancelTimeString(occurrence: EventOccurrence) {
+    const cancelDate =  this.getCancelDate(occurrence);
+    return this.getTimeString(cancelDate);
   }
 }

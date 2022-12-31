@@ -13,11 +13,11 @@ export class CalendarItemComponent {
   constructor(private readonly eventDateAndStatusService: EventDateAndStatusService) {}
 
   get startTime() {
-    return this.eventDateAndStatusService.getStartDate(this.item).toLocaleTimeString();
+    return this.eventDateAndStatusService.getStartTimeString(this.item);
   }
 
   get endTime() {
-    return this.eventDateAndStatusService.getEndDate(this.item).toLocaleTimeString();
+    return this.eventDateAndStatusService.getEndTimeString(this.item);
   }
 
   get status() {
