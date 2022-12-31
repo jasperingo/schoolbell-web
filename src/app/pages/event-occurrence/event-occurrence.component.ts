@@ -1,10 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EventOccurrence } from 'src/app/models/event-occurrence.model';
+import { EventOccurrence, EventOccurrenceStatusMessages } from 'src/app/models/event-occurrence.model';
 import { AuthService } from 'src/app/services/auth-service/auth.service';
+import { EventDateAndStatusService } from 'src/app/services/event-date-and-status/event-date-and-status.service';
 import { EventOccurrenceService } from 'src/app/services/event-occurrence-service/event-occurrence.service';
+
+@Component({
+  selector: 'app-event-occurrence-dl-item',
+  template: `
+    <dt class="font-bold mb-1">{{ title }}</dt>
+    <dd *ngIf="!isLink">{{ body }}</dd>
+    <dd *ngIf="isLink" >
+      <a [href]="body" target="_blank" class="text-blue-500">{{ body }}</a>
+    </dd>
+  `,
+  styles: [` :host { @apply block shadow rounded-lg p-4 mb-4 } `]
+})
+export class EventOccurrenceDLItemComponent {
+  @Input() title!: string;
+
+  @Input() body!: string;
+
+  @Input() isLink = false;
+}
 
 @Component({
   selector: 'app-event-occurrence',
@@ -35,6 +55,7 @@ export class EventOccurrenceComponent implements OnInit {
     private readonly authService: AuthService,
     private readonly toastrService: ToastrService,
     private readonly eventOccurrenceService: EventOccurrenceService,
+    private readonly eventDateAndStatusService: EventDateAndStatusService,
   ) { }
   
   get canManage() {
@@ -50,28 +71,28 @@ export class EventOccurrenceComponent implements OnInit {
   }
 
   get status() {
-    const endDate = new Date(this.endDate);
-    const startDate = new Date(this.startDate);
-
-    return (endDate.getTime() <= Date.now()) 
-      ? 'ended'
-      : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
-        ? 'on-going'
-        : 'not-started'
+    return this.eventDateAndStatusService.getStatus(this.eventOccurrence as EventOccurrence);
   }
 
   get startDate() {
-    return new Date(this.eventOccurrence?.startedAt ?? '').toLocaleString();
+    return this.eventDateAndStatusService.getStartDateString(this.eventOccurrence as EventOccurrence);
   }
 
   get endDate() {
-    const date = new Date(this.eventOccurrence?.startedAt ?? '');
-    date.setMinutes(date.getMinutes() + (this.eventOccurrence?.duration ?? 0));
-    return date.toLocaleString();
+    return this.eventDateAndStatusService.getEndDateString(this.eventOccurrence as EventOccurrence);
   }
 
   get cancelDate() {
-    return new Date(this.eventOccurrence?.cancelledAt ?? '').toLocaleString();
+    return this.eventDateAndStatusService.getCancelDateString(this.eventOccurrence as EventOccurrence);
+  }
+
+  get statusTexts(): EventOccurrenceStatusMessages {
+    return {
+      ended: 'Ended',
+      cancelled: 'Cancelled',
+      'on-going': 'On going',
+      'not-started': 'Not started',
+    }
   }
 
   ngOnInit(): void {

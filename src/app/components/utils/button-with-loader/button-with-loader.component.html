@@ -1,0 +1,9 @@
+<button 
+  (click)="onAction()"
+  [disabled]="loading" 
+  [ngClass]="[color, 'hover:'+colorHover]"
+  class="py-2 px-4 rounded-lg text-white" 
+>
+  <app-small-loader *ngIf="loading"></app-small-loader>
+  <span *ngIf="!loading">{{ text }}</span>
+</button>

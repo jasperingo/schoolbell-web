@@ -2,36 +2,19 @@
   <a routerLink="/account/event-occurrences/{{ item.id }}" class="block shadow rounded-lg p-4">
     <div class="text-xl mb-4">A {{ item.venue }} event</div>
 
-    <div *ngIf="status === 'cancelled'" class="bg-red-400 rounded-lg p-2 mb-4">Cancelled</div>
+    <app-event-occurrence-status
+      *ngIf="status === 'cancelled'" 
+      [status]="status" 
+      [texts]="cancelledStatusTexts"
+    ></app-event-occurrence-status>
 
-    <div *ngIf="status === 'ended'" class="bg-red-200 rounded-lg p-2 mb-4">
-      <span class="font-bold">Started by: </span>
-      <span>{{ startDate }}</span>
-    </div>
-
-    <div *ngIf="status === 'ended'" class="bg-red-200 rounded-lg p-2">
-      <span class="font-bold">Ended by: </span>
-      <span>{{ endDate }}</span>
-    </div>
-
-    <div *ngIf="status === 'on-going'" class="bg-green-200 rounded-lg p-2 mb-4">
-      <span class="font-bold">Started by: </span>
-      <span>{{ startDate }}</span>
-    </div>
-
-    <div *ngIf="status === 'on-going'" class="bg-green-200 rounded-lg p-2">
-      <span class="font-bold">Ends by: </span>
-      <span>{{ endDate }}</span>
-    </div>
-
-    <div *ngIf="status === 'not-started'" class="bg-orange-200 rounded-lg p-2 mb-4">
-      <span class="font-bold">Starts by: </span>
-      <span>{{ startDate }}</span>
-    </div>
-
-    <div *ngIf="status === 'not-started'" class="bg-orange-200 rounded-lg p-2">
-      <span class="font-bold">Ends by: </span>
-      <span>{{ endDate }}</span>
-    </div>
+    <app-event-occurrence-status-with-date  
+      *ngIf="status !== 'cancelled'" 
+      [status]="status"
+      [endDate]="endDate" 
+      [startDate]="startDate"
+      [endTexts]="endStatusTexts" 
+      [startTexts]="startStatusTexts"
+    ></app-event-occurrence-status-with-date>
   </a>
 </li>

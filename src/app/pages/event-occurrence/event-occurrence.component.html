@@ -15,86 +15,60 @@
     <div class="text-4xl mb-4">{{ eventOccurrence.event.title }}</div>
 
     <div class="flex flex-wrap gap-6 items-center mb-4">
-      <div class="bg-gray-200 py-2 px-4 rounded-lg">
-        <span class="font-bold">Host: </span>
-        <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
-      </div>
+      <app-host-data [host]="host?.user" [isBlock]="false"></app-host-data>
 
-      <div *ngIf="status === 'ended'" class="bg-red-200 rounded-lg p-2">Ended</div>
+      <app-event-occurrence-status [status]="status" [texts]="statusTexts"></app-event-occurrence-status>
 
-      <div *ngIf="status === 'on-going'" class="bg-green-200 rounded-lg p-2">On going</div>
+      <app-custom-link
+        text="View event" 
+        link="/account/events/{{ eventOccurrence.event.id }}"
+      ></app-custom-link>
 
-      <div *ngIf="status === 'not-started'" class="bg-orange-200 rounded-lg p-2">Not started</div>
-
-      <a 
-        routerLink="/account/events/{{ eventOccurrence.event.id }}" 
-        class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400"
-      >
-        View event
-      </a>
-
-      <button 
+      <app-button-with-loader 
+        text="Cancel" 
         *ngIf="canManage" 
-        [disabled]="cancelLoading" 
-        class="bg-red-700 py-2 px-4 rounded-lg text-white hover:bg-red-400" 
-        (click)="cancelEvent()"
-      >
-        <app-small-loader *ngIf="cancelLoading"></app-small-loader>
-        <span *ngIf="!cancelLoading">Cancel</span>
-      </button>
+        (action)="cancelEvent()" 
+        [loading]="cancelLoading"
+        color="bg-red-700"
+        colorHover="bg-red-400"
+      ></app-button-with-loader>
 
-      <button 
+      <app-button-with-loader 
+        text="Send reminder" 
         *ngIf="canManage" 
-        [disabled]="reminderLoading" 
-        class="bg-blue-700 py-2 px-4 rounded-lg text-white hover:bg-blue-400" 
-        (click)="sendReminder()"
-      >
-        <app-small-loader *ngIf="reminderLoading"></app-small-loader>
-        <span *ngIf="!reminderLoading">Send reminder</span>
-      </button>
+        (action)="sendReminder()" 
+        [loading]="reminderLoading"
+        color="bg-blue-700"
+        colorHover="bg-blue-400"
+      ></app-button-with-loader>
     </div>
 
-    <div class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Description</div>
-      <div>{{ eventOccurrence.description }}</div>
-    </div>
+    <dl>
+      
+      <app-event-occurrence-dl-item title="Description" [body]="eventOccurrence.description"></app-event-occurrence-dl-item>
 
-    <div class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Start date</div>
-      <div>{{ startDate }}</div>
-    </div>
+      <app-event-occurrence-dl-item title="Start date" [body]="startDate"></app-event-occurrence-dl-item>
 
-    <div class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">End date</div>
-      <div>{{ endDate }}</div>
-    </div>
+      <app-event-occurrence-dl-item title="End date" [body]="endDate"></app-event-occurrence-dl-item>
 
-    <div *ngIf="eventOccurrence.cancelledAt" class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Cancel date</div>
-      <div>{{ cancelDate }}</div>
-    </div>
+      <app-event-occurrence-dl-item *ngIf="eventOccurrence.cancelledAt" title="Cancel date" [body]="cancelDate"></app-event-occurrence-dl-item>
 
-    <div class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Venue</div>
-      <div>{{ eventOccurrence.venue }}</div>
-    </div>
+      <app-event-occurrence-dl-item title="Venue" [body]="eventOccurrence.venue"></app-event-occurrence-dl-item>
 
-    <div *ngIf="eventOccurrence.link" class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Venue</div>
-      <a [href]="eventOccurrence.link" target="_blank" class="text-blue-500">{{ eventOccurrence.link }}</a>
-    </div>
+      <app-event-occurrence-dl-item *ngIf="eventOccurrence.link" title="Virtual meeting link" [body]="eventOccurrence.link" [isLink]="true"></app-event-occurrence-dl-item>
 
-    <div *ngIf="eventOccurrence.address" class="shadow rounded-lg p-4 mb-4">
-      <div class="font-bold mb-1">Addess</div>
-      <div>{{ eventOccurrence.address }}</div>
-    </div>
+      <app-event-occurrence-dl-item *ngIf="eventOccurrence.address" title="Physical meeting address" [body]="eventOccurrence.address"></app-event-occurrence-dl-item>
+
+    </dl>
 
     <form
       *ngIf="canManage" 
       [formGroup]="postponeForm"
       (ngSubmit)="onPostpone()"
-      class="my-8"
+      class="my-8 shadow rounded-lg p-4"
       >
+      <div class="font-bold mb-4">Update start date</div>
+
       <fieldset [disabled]="postponeLoading">
         <app-text-input 
           labelText="Start date"
@@ -108,6 +82,7 @@
         <app-submit-button label="Update start date" [loading]="postponeLoading"></app-submit-button>
       </fieldset>
     </form>
+    
   </div>
   
 </div>

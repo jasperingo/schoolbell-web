@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { EventOccurrence } from 'src/app/models/event-occurrence.model';
+import { EventOccurrence, EventOccurrenceStatusMessages } from 'src/app/models/event-occurrence.model';
+import { EventDateAndStatusService } from 'src/app/services/event-date-and-status/event-date-and-status.service';
 
 @Component({
   selector: 'app-calendar-item',
@@ -9,28 +10,26 @@ import { EventOccurrence } from 'src/app/models/event-occurrence.model';
 export class CalendarItemComponent {
   @Input() item!: EventOccurrence;
 
+  constructor(private readonly eventDateAndStatusService: EventDateAndStatusService) {}
+
   get startTime() {
-    return new Date(this.item.startedAt).toLocaleTimeString();
+    return this.eventDateAndStatusService.getStartDate(this.item).toLocaleTimeString();
   }
 
   get endTime() {
-    const date = new Date(this.item.startedAt);
-    date.setMinutes(date.getMinutes() + this.item.duration);
-    return date.toLocaleTimeString();
+    return this.eventDateAndStatusService.getEndDate(this.item).toLocaleTimeString();
   }
 
   get status() {
-    const endDate = new Date(this.item.startedAt);
-    endDate.setMinutes(endDate.getMinutes() + this.item.duration);
+    return this.eventDateAndStatusService.getStatus(this.item);
+  }
 
-    const startDate = new Date(this.item.startedAt);
-
-    return (this.item.cancelledAt)
-      ? 'cancelled'
-      : (endDate.getTime() <= Date.now()) 
-        ? 'ended'
-        : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
-          ? 'on-going'
-          : 'not-started'
+  get statusTexts(): EventOccurrenceStatusMessages {
+    return {
+      ended: 'Ended',
+      cancelled: 'Cancelled',
+      'on-going': 'On going',
+      'not-started': 'Not started',
+    }
   }
 }

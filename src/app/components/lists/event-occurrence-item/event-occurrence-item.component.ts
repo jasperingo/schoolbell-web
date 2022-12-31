@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { EventOccurrence } from 'src/app/models/event-occurrence.model';
+import { EventOccurrence, EventOccurrenceStatusMessages } from 'src/app/models/event-occurrence.model';
+import { EventDateAndStatusService } from 'src/app/services/event-date-and-status/event-date-and-status.service';
 
 @Component({
   selector: 'app-event-occurrence-item',
@@ -9,26 +10,44 @@ import { EventOccurrence } from 'src/app/models/event-occurrence.model';
 export class EventOccurrenceItemComponent {
   @Input() item!: EventOccurrence;
 
-  get status() {
-    const endDate = new Date(this.endDate);
-    const startDate = new Date(this.startDate);
+  constructor(private readonly eventDateAndStatusService: EventDateAndStatusService) {}
 
-    return (this.item.cancelledAt)
-      ? 'cancelled'
-      : (endDate.getTime() <= Date.now()) 
-        ? 'ended'
-        : (startDate.getTime() < Date.now() && endDate.getTime() > Date.now())
-          ? 'on-going'
-          : 'not-started'
+  get status() {
+    return this.eventDateAndStatusService.getStatus(this.item);
   }
 
   get startDate() {
-    return new Date(this.item.startedAt).toLocaleString();
+    return this.eventDateAndStatusService.getStartDateString(this.item);
   }
 
   get endDate() {
-    const date = new Date(this.item.startedAt);
-    date.setMinutes(date.getMinutes() + this.item.duration);
-    return date.toLocaleString();
+    return this.eventDateAndStatusService.getEndDateString(this.item);
+  }
+
+  get cancelledStatusTexts(): EventOccurrenceStatusMessages {
+    return {
+      ended: '',
+      'on-going': '',
+      'not-started': '',
+      cancelled: 'Cancelled',
+    };
+  }
+
+  get startStatusTexts(): EventOccurrenceStatusMessages {
+    return {
+      cancelled: '',
+      ended: 'Started by',
+      'on-going': 'Started by',
+      'not-started': 'Starts by',
+    };
+  }
+
+  get endStatusTexts(): EventOccurrenceStatusMessages {
+    return {
+      cancelled: '',
+      ended: 'Ended by',
+      'on-going': 'Ends by',
+      'not-started': 'Ends by',
+    }
   }
 }

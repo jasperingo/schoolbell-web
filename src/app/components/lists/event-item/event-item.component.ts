@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
+import { EventOccurrenceStatus, EventOccurrenceStatusMessages } from 'src/app/models/event-occurrence.model';
 import { Event } from 'src/app/models/event.model';
 import { CreateAvatarService } from 'src/app/services/create-avatar/create-avatar.service';
+import { EventDateAndStatusService } from 'src/app/services/event-date-and-status/event-date-and-status.service';
 
 @Component({
   selector: 'app-event-item',
@@ -12,31 +14,41 @@ export class EventItemComponent {
 
   avatarColor = '';
 
-  constructor(private readonly createAvatarService: CreateAvatarService) {
+  constructor(
+    private readonly createAvatarService: CreateAvatarService,
+    private readonly eventDateAndStatusService: EventDateAndStatusService,
+  ) {
     this.avatarColor = this.createAvatarService.getColor();
   }
 
   get status() {
     if (this.item.eventOccurrences.length === 0) {
-      return 'not-started';
+      return EventOccurrenceStatus.NOT_STARTED;
     }
 
     const occurrence = this.item.eventOccurrences[0];
 
     if (occurrence.cancelledAt) {
-      return 'cancelled';
+      return EventOccurrenceStatus.CANCELLED;
     }
 
-    const startDate = new Date(occurrence.startedAt);
-
-    startDate.setMinutes(startDate.getMinutes() + occurrence.duration);
-
-    return (startDate.getTime() <= Date.now()) 
-      ? 'ended'
-      : 'on-going';
+    return (this.eventDateAndStatusService.getEndDate(occurrence).getTime() <= Date.now()) 
+      ? EventOccurrenceStatus.ENDED
+      : EventOccurrenceStatus.ON_GOING;
   }
 
   get occurrenceStartDate() {
-    return new Date(this.item.eventOccurrences[0].startedAt).toLocaleString();
+    return this.item?.eventOccurrences[0] 
+      ? this.eventDateAndStatusService.getStartDateString(this.item.eventOccurrences[0])
+      : '';
+  }
+
+  get statusTexts(): EventOccurrenceStatusMessages {
+    return {
+      ended: 'Next occurrence has ended',
+      'not-started': 'Event has not started',
+      cancelled: 'Next occurrence is cancelled',
+      'on-going': `Next occurrence starts by: ${this.occurrenceStartDate}`,
+    }
   }
 }

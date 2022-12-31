@@ -12,22 +12,16 @@
   </app-error-message>
 
   <div *ngIf="event !== null">
-
     <div class="text-4xl mb-4">{{ event.title }}</div>
 
     <div class="flex flex-wrap gap-6 items-center mb-4">
-      <div class="bg-gray-200 py-2 px-4 rounded-lg">
-        <span class="font-bold">Host: </span>
-        <span>{{ host?.user?.firstName }} {{ host?.user?.lastName }}</span>
-      </div>
+      <app-host-data [host]="host?.user" [isBlock]="false"></app-host-data>
 
-      <a 
+      <app-custom-link 
         *ngIf="isHost" 
-        routerLink="/account/events/{{ event.id }}/create-event-occurrence" 
-        class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400"
-      >
-        Create event occurrence
-      </a>
+        text="Create event occurrence" 
+        link="/account/events/{{ event.id }}/create-event-occurrence"
+      ></app-custom-link>
 
       <button 
         (click)="copyEventLink()" 
@@ -38,25 +32,21 @@
       </button>
 
       <ng-container *ngIf="!isHost">
-        <button 
-          (click)="joinEvent()"
+        <app-button-with-loader 
+          text="Join" 
           *ngIf="!isParticipant" 
-          [disabled]="joinLoading" 
-          class="bg-green-700 py-2 px-4 rounded-lg text-white hover:bg-green-400" 
-        >
-          <app-small-loader *ngIf="joinLoading"></app-small-loader>
-          <span *ngIf="!joinLoading">Join</span>
-        </button>
-  
-        <button 
-          (click)="leaveEvent()"
+          (action)="joinEvent()" 
+          [loading]="joinLoading"
+        ></app-button-with-loader>
+
+        <app-button-with-loader 
+          text="Leave" 
           *ngIf="isParticipant" 
-          [disabled]="leaveLoading" 
-          class="bg-red-500 py-2 px-4 rounded-lg text-white hover:bg-red-400" 
-        >
-          <app-small-loader *ngIf="leaveLoading"></app-small-loader>
-          <span *ngIf="!leaveLoading">Leave</span>
-        </button>
+          (action)="leaveEvent()" 
+          [loading]="leaveLoading"
+          color="bg-red-700"
+          colorHover="bg-red-400"
+        ></app-button-with-loader>
       </ng-container>
     </div>
 

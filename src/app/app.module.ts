@@ -28,10 +28,15 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { EventOccurrenceItemComponent } from './components/lists/event-occurrence-item/event-occurrence-item.component';
 import { ParticipantsItemComponent } from './components/lists/participants-item/participants-item.component';
 import { TextareaInputComponent } from './components/forms/textarea-input/textarea-input.component';
-import { EventOccurrenceComponent } from './pages/event-occurrence/event-occurrence.component';
+import { EventOccurrenceComponent, EventOccurrenceDLItemComponent } from './pages/event-occurrence/event-occurrence.component';
 import { CreateEventOccurrenceComponent } from './pages/create-event-occurrence/create-event-occurrence.component';
 import { SelectInputComponent } from './components/forms/select-input/select-input.component';
 import { CalendarItemComponent } from './components/lists/calendar-item/calendar-item.component';
+import { HostDataComponent } from './components/utils/host-data/host-data.component';
+import { EventOccurrenceStatusComponent } from './components/utils/event-occurrence-status/event-occurrence-status.component';
+import { EventOccurrenceStatusWithDateComponent } from './components/utils/event-occurrence-status-with-date/event-occurrence-status-with-date.component';
+import { ButtonWithLoaderComponent } from './components/utils/button-with-loader/button-with-loader.component';
+import { CustomLinkComponent } from './components/utils/custom-link/custom-link.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +70,12 @@ import { CalendarItemComponent } from './components/lists/calendar-item/calendar
     CreateEventOccurrenceComponent,
     SelectInputComponent,
     CalendarItemComponent,
+    HostDataComponent,
+    EventOccurrenceDLItemComponent,
+    EventOccurrenceStatusComponent,
+    EventOccurrenceStatusWithDateComponent,
+    ButtonWithLoaderComponent,
+    CustomLinkComponent,
   ],
   imports: [
     BrowserModule,
